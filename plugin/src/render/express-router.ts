@@ -1,7 +1,7 @@
 import { join as joinURL } from "node:path/posix";
+import { Config, EntryRender, MainRender } from "src/types";
 
-export const apiRender = async (config) => {
-
+export const expressMainRender: MainRender = async (config: Config) => {
     const imports = config.entries
         .map(r => `import ${r.name} from "${r.alias}";`)
         .join("\n");
@@ -21,16 +21,8 @@ export default router;
     `
 }
 
-export const apiEntryRender = async (routes, item) => {
-    const mapper = ["USE", "AUTH", "GET", "POST", "PUT", "PATCH", "DELETE", "FILE", "PARAM", "ERROR"].reduce((acc, type, ix) => {
-        acc[type] = {
-            priority: ix,
-            method: type.toLocaleLowerCase()
-        }
-        return acc;
-    }, {});
-
-    const typePriority = ["USE", "AUTH", "GET", "POST", "PUT", "PATCH", "DELETE", "FILE", "PARAM", "ERROR"].reduce((acc, type, ix) => {
+export const expressEntryRender: EntryRender = async (routes, item) => {
+    const typePriority = ["USE", "AUTH", "GET", "POST", "PUT", "PATCH", "DELETE", "FILE", "PARAM", "ERROR"].reduce<any>((acc, type, ix) => {
         acc[type] = ix.toString().padStart(3, '0')
         return acc;
     }, {});
@@ -45,8 +37,8 @@ export const apiEntryRender = async (routes, item) => {
                 })
             keys.push(typePriority[it.type]);
             keys.push(it.type);
-            it.o = keys.join("_");
-            return it;
+            const o = keys.join("_");
+            return { ...it, o };
         }).sort((a, b) => {
             return a.o.localeCompare(b.o);
         });
@@ -74,7 +66,6 @@ export const apiEntryRender = async (routes, item) => {
         })
         .join("\n");
 
-    const route = joinURL("/", item.base);
     return `
 import { Router } from "express";
 ${imports}

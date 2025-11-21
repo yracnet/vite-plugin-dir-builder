@@ -10,7 +10,7 @@ export interface Attr {
     type: AttrType;
 }
 
-export class El {
+class El {
     tag: string;
     attrs: Attr[];
     children: El[];
@@ -42,11 +42,6 @@ export class El {
         this.attrs.push({ key, value, type: AttrType.Expression });
         return this;
     }
-
-    // attr2(key: string, value: any, type: AttrType): this {
-    //     this.attrs.push({ key, value, type });
-    //     return this;
-    // }
 
     append(el: El): this {
         this.children.push(el);
@@ -85,3 +80,5 @@ export class El {
         return out;
     }
 }
+
+export default El;

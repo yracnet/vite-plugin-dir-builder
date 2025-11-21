@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet, Link } from 'react-router-dom'
-import { Navbar, Container, Nav } from 'react-bootstrap'
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
+import ModuloDropdown from '../../ui/moduloDropdown'
 
 export default function AuthPageLayout() {
   return (
@@ -9,10 +10,11 @@ export default function AuthPageLayout() {
         <Container>
           <Navbar.Brand>Autenticación</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/login">Iniciar sesión</Nav.Link>
-            <Nav.Link as={Link} to="/register">Registrarse</Nav.Link>
+            <Nav.Link as={Link} to="." >Inicio</Nav.Link>
+            <Nav.Link as={Link} to="login" >Iniciar sesión</Nav.Link>
+            <Nav.Link as={Link} to="register" >Registrarse</Nav.Link>
           </Nav>
+          <ModuloDropdown />
         </Container>
       </Navbar>
       <Container className="py-4">

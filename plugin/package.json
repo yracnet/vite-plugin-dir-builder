@@ -1,8 +1,25 @@
 {
-  "name": "plugin",
+  "name": "vite-plugin-dir-builder",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./utils/*": {
+      "import": "./dist/utils/*.js",
+      "types": "./dist/utils/*.d.ts"
+    },
+    "./render/*": {
+      "import": "./dist/render/*.js",
+      "types": "./dist/render/*.d.ts"
+    }
+  },
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
   "scripts": {
     "build": "tsup",
@@ -11,8 +28,6 @@
     "prepack": "yarn build"
   },
   "dependencies": {
-    "-": "^0.0.1",
-    "D": "^1.0.0",
     "fast-glob": "^3.3.3",
     "glob": "^11.0.1"
   },

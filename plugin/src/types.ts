@@ -16,9 +16,10 @@ export type Entry = {
 
 export type Config = {
     base: string,
+    name: string,
     alias: string,
     file: string,
-    render: mainRender,
+    render: MainRender,
     entries: Entry[],
 }
 
@@ -31,7 +32,7 @@ export type FileItem = {
 
 export type EntryRender = (list: FileItem[], entry: Entry, config: Config) => Promise<string>;
 
-export type mainRender = (config: Config) => Promise<string>;
+export type MainRender = (config: Config) => Promise<string>;
 
 export type Options = {
     moduleId?: string,
@@ -40,7 +41,7 @@ export type Options = {
     ext?: string,
     cache?: string,
     base?: string,
-    mainRender?: mainRender,
+    mainRender?: MainRender,
     entryRender?: EntryRender,
     entries?: {
         dir: string,
@@ -90,6 +91,7 @@ export function ensureConfig({
     mkdirSync(cacheDir, { recursive: true })
     return {
         base,
+        name,
         alias: `${moduleId}/${name}${ext}`,
         file: path.join(root, cache, `${name}${ext}`),
         render: mainRender,

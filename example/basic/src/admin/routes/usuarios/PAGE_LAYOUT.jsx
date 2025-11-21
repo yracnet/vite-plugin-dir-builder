@@ -9,13 +9,13 @@ export default function UsuariosLayout() {
       <div className="mb-3">
         <Nav variant="pills">
           <Nav.Item>
-            <Nav.Link as={Link} to="">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="." >Inicio</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link as={Link} to="lista">Lista de usuarios</Nav.Link>
+            <Nav.Link as={Link} to="lista" >Lista de usuarios</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link as={Link} to="detalle/1">Detalle (ejemplo)</Nav.Link>
+            <Nav.Link as={Link} to="detalle/1" >Detalle (ejemplo)</Nav.Link>
           </Nav.Item>
         </Nav>
       </div>

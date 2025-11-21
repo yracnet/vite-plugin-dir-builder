@@ -1,22 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-
-import pluginDirs from '../../plugin/src'
-import { apiRender, apiEntryRender } from "./render/app-express"
-import { reactMainRender, reactEntryRender } from "./render/react-router"
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import pluginDirs from 'vite-plugin-dir-builder';
+import { expressMainRender, expressEntryRender } from "vite-plugin-dir-builder/render/express-router";
+import { reactMainRender, reactEntryRender } from "vite-plugin-dir-builder/render/react-router";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    //@ts-ignore
     pluginDirs({
       cache: '.cache/api',
       moduleId: '@api',
       ext: '.js',
       base: '/api',
-      mainRender: apiRender,
-      entryRender: apiEntryRender,
+      mainRender: expressMainRender,
+      entryRender: expressEntryRender,
       entries: [
         {
           dir: 'src/admin/routes',
@@ -41,7 +39,6 @@ export default defineConfig({
         },
       ]
     }),
-    //@ts-ignore
     pluginDirs({
       cache: '.cache/ui',
       moduleId: '@pages',
@@ -51,18 +48,25 @@ export default defineConfig({
       entryRender: reactEntryRender,
       entries: [
         {
-          dir: './src/admin/routes',
+          dir: 'src/site/routes',
           pattern: [
             '**/(PAGE|PAGE_LAYOUT|PAGE_MAIN).(jsx|tsx)'
           ],
-          base: 'admin',
+          base: '',
         },
         {
           dir: 'src/auth/routes',
           pattern: [
             '**/(PAGE|PAGE_LAYOUT|PAGE_MAIN).(jsx|tsx)'
           ],
-          base: '',
+          base: 'auth',
+        },
+        {
+          dir: './src/admin/routes',
+          pattern: [
+            '**/(PAGE|PAGE_LAYOUT|PAGE_MAIN).(jsx|tsx)'
+          ],
+          base: 'admin',
         },
         {
           dir: 'src/portal/routes',
